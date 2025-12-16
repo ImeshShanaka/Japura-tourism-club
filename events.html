@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - Japura Tourism Club</title>
+    <!-- Favicon img -->
+    <link rel="shortcut icon" href="assets/images/Logo2.png">
+    <!-- Bootstarp min css -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <!-- Mean menu css -->
+    <link rel="stylesheet" href="assets/css/meanmenu.css">
+    <!-- All min css -->
+    <link rel="stylesheet" href="assets/css/all.min.css">
+    <!-- Swiper bundle min css -->
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+    <!-- Magnigic popup css -->
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <!-- Animate css -->
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <!-- Nice select css -->
+    <link rel="stylesheet" href="assets/css/nice-select.css">
+    <!-- Style css -->
+    <link rel="stylesheet" href="assets/css/style.css">
+	
+    <style>
+        #event-section-wrapper {
+            background: #f8f9fa;
+            padding-top: 50px;
+            padding-bottom: 60px;
+            padding-left: 20px;
+            padding-right: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+        }
+
+
+        #event-section-wrapper * {
+            box-sizing: border-box;
+        }
+
+        #event-section-wrapper h3 {
+            margin-top: 0;
+            line-height: 1.2;
+        }
+
+        #event-section-wrapper p {
+            margin-bottom: 0;
+        }
+
+        .txt {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 50px;
+            margin-top: 0;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .txt::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #F74F22, #ff6b45);
+            border-radius: 2px;
+        }
+
+        .news-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .event__item {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .image {
+            width: 100%;
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+        }
+
+
+        .image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            display: block;
+        }
+
+        .event__content {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .event__content ul {
+            list-style: none;
+            margin: 0 0 15px 0;
+            padding: 0;
+        }
+
+        .event__content ul li {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            /* DEFAULT STATE: Gray */
+            background: #6c757d;
+            color: white;
+
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+
+            /* Smooth Transition for the color change */
+            transition: all 0.3s ease;
+        }
+
+        .event__content ul li span {
+            color: #ffffff !important;
+        }
+
+        .event__content ul li svg {
+            stroke: white !important;
+            width: 18px;
+            height: 18px;
+        }
+
+        .event__content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            color: #2c3e50;
+            transition: color 0.3s ease;
+        }
+
+        .event__content p {
+            color: #6c757d;
+            line-height: 1.8;
+            font-size: 0.95rem;
+            text-align: justify;
+            flex: 1;
+            overflow: visible;
+        }
+
+        @media (max-width: 992px) {
+            .news-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .news-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        .event__item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(247, 79, 34, 0.15);
+        }
+
+        .event__item:hover .image img {
+            transform: scale(1.05);
+        }
+
+        .event__item {
+            padding: 0;
+        }
+
+        .event__item:hover .event__content ul li {
+            background: #F74F22;
+            box-shadow: 0 4px 10px rgba(247, 79, 34, 0.3);
+        }
+
+        .event__item:hover .event__content h3 {
+            color: #F74F22;
+        }
+
+        .image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .event__item:hover .image::after {
+            opacity: 1;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 99999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #F74F22;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .modal-content p {
+            color: #333;
+            text-align: left;
+        }
+
+        .event__item .image {
+            margin: -30px -30px 0 -30px;
+            overflow: hidden;
+        }
+        
+    </style>
+</head>
+
+<body>
+
+    <div id="loading">
+        <div id="loading-center">
+            <div id="loading-center-absolute">
+                <div class="loading-icon text-center d-flex flex-column align-items-center justify-content-center">
+                    <img class="loading-logo" src="assets/images/motion-blur-2.svg" alt="icon">
+                </div>
+            </div>
+        </div>
+    </div>
+    <header class="header-area">
+        <div class="container">
+            <div class="header__main">
+                <a href="index.html" class="logo">
+                    <img src="assets/images/tourism_logo.png" alt="logo">
+                </a>
+
+                <div class="main-menu">
+                    <nav>
+                        <ul>
+                            <li class="has-megamenu"><a href="index.html">Home</a></li>
+                            <li><a href="gallery.html">Gallery</a></li>
+                            <li><a href="events.html">Events</a></li>
+                            <li>
+                                <a href="#0">Team</a>
+                                <ul class="sub-menu">
+                                    <li><a href="Executive_board_23_24.html">Executive Board 23/24</a></li>
+                                    <li><a href="Executive_board_24_25.html">Executive Board 24/25</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="btn-two d-none d-lg-inline-block">
+                    <span class="btn-circle"></span>
+                    <a href="apply.html" class="btn-inner">
+                        <span class="btn-text">APPLY NOW</span>
+                    </a>
+                </div>
+
+                <div class="bars d-block d-lg-none">
+                    <i id="openButton" class="fa-solid fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="targetElement" class="sidebar-area sidebar__hide">
+        <div class="sidebar__overlay"></div>
+        <a href="index.html" class="logo mb-40">
+            <img src="assets/images/tourism_logo.png" alt="logo">
+        </a>
+        
+        <div class="sidebar__menu mb-30">
+            <ul class="d-block" style="list-style: none; padding: 0;">
+                <li class="mb-2"><a href="index.html" class="text-white fs-5">Home</a></li>
+                <li class="mb-2"><a href="gallery.html" class="text-white fs-5">Gallery</a></li>
+                <li class="mb-2"><a href="events.html" class="text-white fs-5">Events</a></li>
+                <li class="mb-2">
+                    <a href="#0" class="text-white fs-5">Team</a>
+                    <ul class="sub-menu ps-3 mt-2" style="list-style: none;">
+                        <li class="mb-1"><a href="Executive_board_23_24.html" class="text-white-50">Executive Board 23/24</a></li>
+                        <li class="mb-1"><a href="Executive_board_24_25.html" class="text-white-50">Executive Board 24/25</a></li>
+                    </ul>
+                </li>
+                <li class="mb-2"><a href="blog.html" class="text-white fs-5">Blog</a></li>
+                <li class="mb-2"><a href="contact.html" class="text-white fs-5">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="social-icon mt-20">
+            <a href="https://www.facebook.com/search/top?q=japura%20tourism"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://www.youtube.com/@JapuraTourismClub"><i class="fa-brands fa-youtube"></i></a>
+            <a href="https://www.instagram.com/_japura_tourism_/"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@_japura_tourism_"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+        <button id="closeButton" class="text-white"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <main>
+    <div id="event-section-wrapper">
+
+        <h2 class="txt">Events & Workshops</h2>
+
+        <div class="modal" id="eventModal">
+            <div class="modal-content">
+                <span class="modal-close">×</span>
+                <img id="modalImage" src="" alt="Event Image"
+                    style="width:100%; height:auto; border-radius:15px; margin-bottom:20px;">
+                <div id="modalBody"></div>
+            </div>
+        </div>
+
+        <div class="news-container">
+            <section id="ev1">
+                <div class="event__item">
+                    <div class="image">
+                        <img src="assets/images/event/event_1.png" alt="Installation Ceremony 2025">
+                    </div>
+                    <div class="event__content">
+                        <ul>
+                            <li>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F74F22"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                <span>14, AUG 2025 |</span>
+                                <span>03.00 PM</span>
+                            </li>
+                        </ul>
+                        <h3>Installation Ceremony 2025</h3>
+                        <p>✨ Welcoming our esteemed guests to the Installation Ceremony 2025✨<br><br>
+                            We are honored to have Mr. Saakya Ukwatta,Managing Director of Mt. Lavinia Hotel, as our
+                            Chief Guest, and Mr. Shalaka Wijeyratne, Executive Director – Investment Promotion &
+                            Marketing, Port City Colombo, as our Guest of Honor.<br><br>
+                            Your presence adds great value to our celebration as we begin a new journey of leadership
+                            and inspiration!</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="ev2">
+                <div class="event__item">
+                    <div class="image">
+                        <img src="assets/images/event/event_2.png" alt="Academia Industrial Interface ‘25!">
+                    </div>
+                    <div class="event__content">
+                        <ul>
+                            <li>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F74F22"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                <span>12, AUG 2025 |</span>
+                                <span>10.00 AM</span>
+                            </li>
+                        </ul>
+                        <h3>Academia Industrial Interface ‘25!</h3>
+                        <p>🎉 Registrations Now Open!🎉
+                            The Event Management Workshop under Academia Industrial Interface ‘25! 💼<br><br>
+                            📅 Date: 12th August<br>
+                            📍 Venue: Sumangala Auditorium<br>
+                            ⏰ Time: 10 a.m-12 p.m
+                            <br><br>
+                            📜 A valuable certificate will be issued!
+                            <br><br>
+                            ⚠️ Make sure to click the right registration link and fill the form correctly.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="ev3">
+                <div class="event__item">
+                    <div class="image">
+                        <img src="assets/images/event/event_3.png" alt="Japura Tourism සූර්ය මංගල්‍යය 2025">
+                    </div>
+                    <div class="event__content">
+                        <ul>
+                            <li>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F74F22"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                <span>26, APR 2025 | </span>
+                                <span>04.00 PM</span>
+                            </li>
+                        </ul>
+                        <h3>Japura Tourism සූර්ය මංගල්‍යය 2025</h3>
+                        <p>මෙවර 26 වන සෙනසුරාදා ගල්කිස්ස Berjaya හෝටල් පරිශ්‍රයේදී කලා තරු පිරිවරා පැවැත්වෙන වගයි෴🌟<br><br>
+                            ⭐️ කලා ශිල්පීන් රැසකගේ සහාභාගීත්වයෙන් පැවැත්වීමට නියමිත Japura Tourism සූර්ය මංගල්‍යයට ඔබ
+                            සැමට ආරාධනා!!!♥️</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="ev4">
+                <div class="event__item">
+                    <div class="image">
+                        <img src="assets/images/event/event_4.png" alt="IT Crew Applications">
+                    </div>
+                    <div class="event__content">
+                        <ul>
+                            <li>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F74F22"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                <span>23, APR 2025 | </span>
+                                <span>05.00 PM</span>
+                            </li>
+                        </ul>
+                        <h3>Boosting Sri Lankan Tourism through Content Creation</h3>
+                        <p>Sri Lanka is full of hidden gems—from stunning beaches and lush mountains to rich culture and
+                            warm hospitality. With the power of creative content, we can showcase these wonders to the
+                            world.<br><br>
+                            Whether it's a photo, vlog, or short reel, every piece of content has the potential to
+                            attract travelers and support our tourism industry. Let’s tell stories that inspire,
+                            connect, and invite others to explore our island home.<br><br>
+                            📲 Start creating. Start sharing. Let’s put Sri Lanka on the global map through the power of
+                            content!</p>
+                    </div>
+                </div>
+            </section>
+
+            <div class="event__item">
+                <div class="image">
+                    <img src="assets/images/event/event_5.jpg" alt="Sunset Yoga Session">
+                </div>
+                <div class="event__content">
+                    <ul>
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F74F22"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            <span>29, APR 2025 | </span>
+                            <span>04.30 PM</span>
+                        </li>
+                    </ul>
+                    <h3>Sunset Yoga Session</h3>
+                    <p>Unwind Your Mind and Body with Sunset Yoga!🧘<br><br>
+                        Join with us for a serene and revitalizing Sunset Yoga Session🌅<br><br>
+                        📍Mount Lavinia Beach<br>
+                        🗓️Tuesday, 29th April 2025<br>
+                        ⏱️4:30 PM<br>
+                        🏷️ 15 $ Per Person<br><br>
+                        This one-hour guided session is perfect for beginners and experienced yoga lovers alike.<br>
+                        Don't miss out on this peaceful beachside experience!♥️</p>
+                </div>
+            </div>
+
+            <div class="event__item">
+                <div class="image">
+                    <img src="assets/images/event/event_6.jpg" alt="Airline Services Workshop">
+                </div>
+                <div class="event__content">
+                    <ul>
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F74F22"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            <span>30, JAN 2025 | </span>
+                            <span>09.00 AM</span>
+                        </li>
+                    </ul>
+                    <h3>Airline Services Workshop</h3>
+                    <p>Registration is open for Airline Services Workshop🤩<br><br>
+                        ✈️ Ready to take off towards your dream career? 💆<br><br>
+                        🚀 Gain insights, tips, and skills to soar in the aviation industry. Don't miss this
+                        opportunity—register today!<br><br>
+                        🌟
+                        Register Now👇
+                        https://shorturl.at/j3feo</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer-area secondary-bg overflow-hidden">
+        <div class="footer__main-wrp">
+            <div class="footer__shape-left wow slideInLeft" data-wow-delay="200ms" data-wow-duration="1500ms">
+                <img class="footer__shape__animation" src="assets/images/shape/footer-shape-left.png" alt="shape">
+            </div>
+            <div class="footer__shape-right wow slideInRight" data-wow-delay="400ms" data-wow-duration="1500ms">
+                <img class="footer__shape__animation-right" src="assets/images/shape/footer-shape-right.png"
+                    alt="shape">
+            </div>
+            <div class="container">
+                <div class="footer__wrp pt-120 pb-120">
+                    <div class="row g-4 justify-content-between">
+                        <div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-delay="00ms" data-wow-duration="1500ms">
+                            <div class="footer__item">
+                                <a href="index.html" class="logo mb-40">
+                                    <img src="assets/images/logo2.png" alt="image">
+                                </a>
+                                <p class="text-white">Promoting travel, culture, and sustainability through education
+                                    and exploration.</p>
+                                <div class="btn-one mt-40">
+                                    <span class="btn-circle"></span>
+                                    <a href="apply.html" class="btn-inner">
+                                        <span class="btn-text">JOIN NOW</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-12 wow fadeInUp" data-wow-delay="200ms" data-wow-duration="1500ms">
+                            <div class="footer__item">
+                                <h3 class="title mb-40 text-white">Our Location</h3>
+                                <div class="map-container"
+                                    style="position: relative; width: 100%; height: 300px; border-radius: 10px; overflow: hidden;">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.798511707696!2d79.8996788!3d6.908849!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae259d4c726a163%3A0x6b8252d0d7e6c99c!2sUniversity%20of%20Sri%20Jayewardenepura!5e0!3m2!1sen!2slk!4v1683262624422!5m2!1sen!2slk" width="100%"
+                                        height="250" style="border:0; border-radius: 10px;" allowfullscreen=""
+                                        loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                                    </iframe>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 wow fadeInUp" data-wow-delay="400ms" data-wow-duration="1500ms">
+                            <div class="footer__item">
+                                <h3 class="title mb-40 text-white">Contact Info</h3>
+                                <ul class="link info">
+                                    <li class="mb-3">
+                                        <a href="tel:+94 77 758 1811"><i class="fa-solid fa-phone me-1 primary-color"></i>
+                                            +94 77 758 1811</a>
+                                    </li>
+                                    <li class="mb-3">
+                                        <a href="mailto:info@sjp.ac.lk"><i
+                                                class="fa-sharp fa-solid fa-envelope me-1 primary-color"></i>
+                                            info@sjp.ac.lk</a>
+                                    </li>
+                                    <li>
+                                        <a href="https://share.google/w4jhPEPXLUWNVrraO"><i
+                                                class="fa-solid fa-location-dot me-1 primary-color"></i> University of
+                                            Sri Jayewardenepura Sri Soratha Mawatha, Gangodawila, Nugegoda, Sri Lanka.
+                                            62639</a>
+                                    </li>
+                                </ul>
+                                <div class="social-icon mt-30">
+                                    <a class="active" href="https://www.facebook.com/profile.php?id=100084804486064"><i
+                                            class="fa-brands fa-facebook-f"></i></a>
+                                    <a href="https://www.youtube.com/@JapuraTourismClub"><i
+                                            class="fa-brands fa-youtube"></i></a>
+                                    <a href="https://www.instagram.com/_japura_tourism_/"><i
+                                            class="fa-brands fa-instagram"></i></a>
+                                    <a href="https://www.tiktok.com/@_japura_tourism_"><i
+                                            class="fa-brands fa-tiktok"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer__copytext">
+            <p class="wow fadeInDown" data-wow-delay="400ms" data-wow-duration="1500ms">© All Copyright 2025 by <a
+                    href="https://www.linkedin.com/in/imesh-shanaka" class="text-white primary-hover">Imesh Shanaka</a>
+            </p>
+        </div>
+    </footer>
+    <div class="scroll-up">
+        <svg class="scroll-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+        </svg>
+    </div>
+    <script src="assets/js/social-stats.js"></script>
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/meanmenu.js"></script>
+    <script src="assets/js/swiper-bundle.min.js"></script>
+    <script src="assets/js/jquery.counterup.min.js"></script>
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/magnific-popup.min.js"></script>
+    <script src="assets/js/nice-select.min.js"></script>
+    <script src="assets/js/isotope.pkgd.min.js"></script>
+    <script src="assets/js/jquery.waypoints.js"></script>
+    <script src="assets/js/script.js"></script>
+
+    <script>
+        // Get modal elements
+        const modal = document.getElementById('eventModal');
+        const modalBody = document.getElementById('modalBody');
+        const modalImage = document.getElementById('modalImage');
+        const modalClose = document.querySelector('.modal-close');
+
+        // When any event is clicked
+        document.querySelectorAll('.event__item').forEach(item => {
+            item.addEventListener('click', () => {
+                // Set modal image src
+                const imgSrc = item.querySelector('.image img').src;
+                modalImage.src = imgSrc;
+
+                // Copy content without image
+                const contentHTML = item.querySelector('.event__content').outerHTML;
+                modalBody.innerHTML = contentHTML;
+
+                modal.style.display = 'flex';
+            });
+        });
+
+        // Close modal
+        modalClose.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // Close when clicking outside modal content
+        window.addEventListener('click', e => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>
